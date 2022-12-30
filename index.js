@@ -1,5 +1,9 @@
-const http = require('http');
 const fs = require('fs');
+const express = require('express');
+const server = express();
+
+/* OLD IMPLEMENTATION
+const http = require('http');
 
 http
   .createServer((req, res) => {
@@ -20,3 +24,4 @@ http
     });
   })
   .listen(8080);
+*/
