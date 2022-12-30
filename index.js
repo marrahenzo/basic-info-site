@@ -1,27 +1,20 @@
-const fs = require('fs');
 const express = require('express');
-const server = express();
+const app = express();
 
-/* OLD IMPLEMENTATION
-const http = require('http');
+app.get('/', (req, res) => {
+  res.sendFile('./index.html', { root: __dirname });
+});
 
-http
-  .createServer((req, res) => {
-    let url = new URL(req.url, `http://${req.headers.host}`);
-    let fileName = url.pathname.slice(1);
-    //Redirect to index
-    if (fileName === '') fileName = 'index.html';
-    fs.readFile(`./${fileName}`, (err, data) => {
-      if (err) {
-        res.writeHead(404, { 'Content-Type': 'text/html' });
-        //Used synchronous file read to avoid creating a separate function
-        res.write(fs.readFileSync('./404.html', (_, data404) => data404));
-        return res.end();
-      }
-      res.writeHead(200, { 'Content-Type': 'text/html' });
-      res.write(data);
-      return res.end();
-    });
-  })
-  .listen(8080);
-*/
+app.get('/about', (req, res) => {
+  res.sendFile('./about.html', { root: __dirname });
+});
+
+app.get('/contact', (req, res) => {
+  res.sendFile('./contact-me.html', { root: __dirname });
+});
+
+app.get('*', (req, res) => {
+  res.status(404).sendFile('./404.html', { root: __dirname });
+});
+
+app.listen(3000);
